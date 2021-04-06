@@ -14,7 +14,7 @@ var (
 
 	// secretCmd represents the secret command
 	secretCmd = &cobra.Command{
-		Use: "secret [secret]",
+		Use:     "secret [secret]",
 		Example: "kubesecret get secret [secret] --namespace default.",
 		Run: func(cmd *cobra.Command, args []string) {
 			getSecrets(args)
@@ -29,15 +29,31 @@ func init() {
 
 func getSecrets(args []string) {
 	if len(args) != 0 {
-		secrets, err := clientset.CoreV1().Secrets(namespace).Get(context.TODO(), args[0], v1.GetOptions{})
-		if err != nil {
-			cobra.CheckErr(err)
-		}
+		if len(args) > 1 {
+			for _, scrt := range args {
+				cobra.WriteStringAndCheck(os.Stdout, fmt.Sprintf("Secret: %s\n\n", scrt))
 
-		for i, s := range secrets.Data {
-			cobra.WriteStringAndCheck(os.Stdout, fmt.Sprintf("%v: %v\n", i, string(s)))
-		}
+				secrets, err := clientset.CoreV1().Secrets(namespace).Get(context.TODO(), scrt, v1.GetOptions{})
+				if err != nil {
+					cobra.CheckErr(err)
+				}
 
+				for i, s := range secrets.Data {
+					cobra.WriteStringAndCheck(os.Stdout, fmt.Sprintf("%v: %v\n", i, string(s)))
+				}
+
+				cobra.WriteStringAndCheck(os.Stdout, "\n")
+			}
+		} else {
+			secrets, err := clientset.CoreV1().Secrets(namespace).Get(context.TODO(), args[0], v1.GetOptions{})
+			if err != nil {
+				cobra.CheckErr(err)
+			}
+
+			for i, s := range secrets.Data {
+				cobra.WriteStringAndCheck(os.Stdout, fmt.Sprintf("%v: %v\n", i, string(s)))
+			}
+		}
 	} else {
 		secrets, err := clientset.CoreV1().Secrets(namespace).List(context.TODO(), v1.ListOptions{})
 		if err != nil {
