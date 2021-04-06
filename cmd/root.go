@@ -7,7 +7,7 @@ import (
 var (
 	rootCmd = &cobra.Command{
 		Use:     "kubesecret",
-		Short:   "Prints the content of k8s secrets",
+		Short:   "Kubesecret.\nPrints the data of k8s secrets and configmaps.",
 		Version: "v0.1.0",
 	}
 )
