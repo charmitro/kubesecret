@@ -3,7 +3,10 @@
 Kubesecret is a command-line tool that prints secrets and configmaps data of a kubernetes cluster.
 `kubesecret -h` for help pages.
 
-### Flags
+#### Install
+`go get github.com/charmitro/kubesecret`
+
+#### Flags
     -h, --help        help for [command]
         --kubeconfig  string    (optional) absolute path to the kubeconfig file (default "/Users/charmitro/.kube/config")
     -n, --namespace   string Namespace for kubesecret to look into. (default "default")
