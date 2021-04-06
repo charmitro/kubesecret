@@ -24,7 +24,7 @@ var (
 
 func init() {
 	getCmd.AddCommand(secretCmd)
-	secretCmd.Flags().StringVarP(&secret, "secret", "s", "", "configmap to search for.")
+	secretCmd.Flags().StringVarP(&secret, "secret", "s", "", "secret to search for.")
 }
 
 func getSecrets(args []string) {
