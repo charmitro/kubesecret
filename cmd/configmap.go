@@ -25,7 +25,6 @@ var (
 
 func init() {
 	getCmd.AddCommand(configmapCmd)
-	configmapCmd.Flags().StringVarP(&configMap, "configmap", "c", "", "configmap to search for.")
 }
 
 func getConfigMaps(args []string) {
