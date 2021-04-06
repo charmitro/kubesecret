@@ -1,6 +1,7 @@
 # Kubesecret
 
 Kubesecret is a command-line tool that prints secrets and configmaps data of a kubernetes cluster.
+
 `kubesecret -h` for help pages.
 
 #### Install
